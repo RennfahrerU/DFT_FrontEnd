@@ -1,7 +1,4 @@
 
-# numero = [0, 1, 2, 3, 4, 5, 6, 7]
-numero2 = [19, 9, 29, 35, 90, 64, 12, 62, 1, 95, 33, 69, 77, 47, 13, 15, 55]
-
 
 def ordenar(lista):
     izquierda = []
@@ -16,7 +13,8 @@ def ordenar(lista):
 
 
 def factorial(n):
-    fact = 1
+    if (n == 0 or n == 1):
+        fact = 1
     for i in range(1, n+1):
         fact *= i
     return fact
@@ -34,8 +32,6 @@ def taylor_coseno(x, n):
     for i in range(0, n):
         cos += ((-1)**i * x**(2*i)) / factorial(2*i)
     return cos
-
-# todo:Para los valores del profesor colocar otros valores
 
 
 def dft(lista):
@@ -71,9 +67,3 @@ def dft(lista):
         vect[m + n // 2] = par_dft[m] - complex(z_re, z_im)
 
     return vect
-
-
-print(f"la entrada de datos es {numero2} \nla dft es {dft(numero2)}")
-
-# muestra = divide(ordenar(numero))
-# print(f"La muestra es {muestra}")
