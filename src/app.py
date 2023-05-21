@@ -21,12 +21,14 @@ def calcular_fft():
     # Realiza la FFT en la lista de datos
     result = dft(data)
 
+    real = [x.real for x in result]
+    imaginary = [x.imag for x in result]
     # Crea un nuevo JSON con los resultados de la FFT
     json_result = {
-        'real': result.real.tolist(),
-        'imaginary': result.imag.tolist()
+        'real': real,
+        'imaginary': imaginary
     }
-
+    # print(f'contendio del json es {json_result}')
     # Devuelve el JSON como respuesta
     return jsonify(json_result)
 
