@@ -1,5 +1,5 @@
 """Modulo de flask"""
-from flask import request
+from flask import request, render_template
 
 from flask import Flask, request, jsonify, redirect, url_for
 from fft.dft import dft
@@ -10,7 +10,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return "hola mundo"
+    return render_template("index.html")
 
 
 @app.route('/calcular-fft', methods=['POST'])
