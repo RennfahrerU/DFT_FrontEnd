@@ -13,6 +13,8 @@ def index():
     return render_template("index.html")
 
 
+
+#TODO: Hacer método para hacer el llamado a la librería en C
 @app.route('/calcular-fft', methods=['POST'])
 def calcular_fft():
     # Obtén el JSON recibido del cuerpo de la solicitud
