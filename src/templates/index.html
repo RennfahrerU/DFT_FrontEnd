@@ -24,9 +24,18 @@
     </div>
     <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3">
       <div class="mb-3">
-        <h3>Ingresar números separados por comas</h3>
         <form method="POST" action="/">
-          <input type="text" name="numbers" placeholder="Ingrese números" />
+          <h4>Seleccione el lenguaje</h4>
+          <select name="lenguaje">
+            <option value="python">Python</option>
+            <option value="c">C</option>
+          </select>
+          <h4>Ingrese los números a operar</h4>
+          <input
+            type="text"
+            name="numbers"
+            placeholder="Ingrese números separados por comas"
+          />
           <input type="submit" value="Enviar" />
         </form>
 

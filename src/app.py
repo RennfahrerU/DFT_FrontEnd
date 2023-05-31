@@ -14,6 +14,14 @@ def index():
         numbers = request.form['numbers']
         numbers_list = [int(num.strip()) for num in numbers.split(',')]
 
+        lenguaje = request.form['lenguaje']
+
+        if lenguaje == 'python':
+            url = 'http://100.26.165.241:5000/calcular-fft-python'
+        elif lenguaje == 'c':
+            url = 'http://100.26.165.241:5000/calcular-fft-c'
+        print(lenguaje)
+
         # Crear el diccionario con la estructura requerida
         data = {'data': numbers_list}
 
@@ -21,7 +29,7 @@ def index():
         json_data = json.dumps(data)
 
         # Enviar los datos JSON a través de una solicitud POST
-        url = 'http://100.26.165.241:5000/calcular-fft-python'
+        #url = 'http://100.26.165.241:5000/calcular-fft-python'
         headers = {'Content-Type': 'application/json'}
         response = requests.post(url, data=json_data, headers=headers)
 
