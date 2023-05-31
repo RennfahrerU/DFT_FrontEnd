@@ -1,6 +1,7 @@
 {% extends "layout.html" %} {% block head %}
 <title>Índice de la página</title>
 <link rel="stylesheet" href="{{url_for('static', filename='css/index.css')}}" />
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 {% endblock %} {% block body %}
 <h1 class="text-center">
   Análisis de onda mediante la Transformada Rápida de Fourier
@@ -19,38 +20,38 @@
       </p>
     </div>
     <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
-      <img
-        class="img-fluid"
-        id="sin"
-        src="{{url_for('static', filename='images/ejemplo_onda.png')}}"
-        alt="Léelo"
-      />
+      <canvas id="myChart" width="400" height="200"></canvas>
     </div>
     <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3">
-      <h5 class="text-center">Ingrese los números a trabajar en la FFT</h5>
       <div class="mb-3">
-        <label for="numeros" class="form-label"
-          >Números separados por comas</label
-        >
-        <input
-          type="text"
-          class="form-control"
-          id="numeros"
-          placeholder="Ej: 1,2,3,4,5,6,7,8"
-          autocomplete="off"
-        />
-      </div>
-      <div class="mb-3">
-        <label for="exampleFormControlTextarea1" class="form-label"
-          >Example textarea</label
-        >
-        <textarea
-          class="form-control"
-          id="exampleFormControlTextarea1"
-          rows="3"
-        ></textarea>
+        <h3>Ingresar números separados por comas</h3>
+        <form method="POST" action="/">
+          <input type="text" name="numbers" placeholder="Ingrese números" />
+          <input type="submit" value="Enviar" />
+        </form>
+
+        <h3>Resultados de la FFT</h3>
+
+        <h5>Entrada:</h5>
+        <p>{{ numbers }}</p>
+
+        <h5>Resultados:</h5>
+        <table class="table table-striped-columns">
+          <tr>
+            <th>Parte real</th>
+            <th>Parte imaginaria</th>
+          </tr>
+          {% for real, imaginary in pairs %}
+          <tr>
+            <td>{{ real }}</td>
+            <td>{{ imaginary }}</td>
+          </tr>
+          {% endfor %}
+        </table>
       </div>
     </div>
   </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="{{ url_for('static', filename='js/index.js') }}"></script>
 {% endblock %}
