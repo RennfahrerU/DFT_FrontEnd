@@ -31,11 +31,10 @@
             <option value="c">C</option>
           </select>
           <h4>Ingrese los números a operar</h4>
-          <input
-            type="text"
-            name="numbers"
-            placeholder="Ingrese números separados por comas"
-          />
+          {% if error %}
+          <p class="error">{{ error }}</p>
+          {% endif %}
+          <input type="text" name="numbers" placeholder="Ingrese números separados por comas" />
           <input type="submit" value="Enviar" />
         </form>
 

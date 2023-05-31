@@ -11,7 +11,12 @@ def index():
     global results
 
     if request.method == 'POST':
+
         numbers = request.form['numbers']
+
+        if not numbers:
+            return render_template('index.html', error="Error: El campo 'numbers' no puede estar vacío")
+
         numbers_list = [int(num.strip()) for num in numbers.split(',')]
 
         lenguaje = request.form['lenguaje']
