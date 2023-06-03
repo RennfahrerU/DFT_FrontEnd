@@ -1,16 +1,18 @@
+<!-- Código heredado de la plantilla layout.html  -->
 {% extends "layout.html" %} {% block head %}
-<title>Índice de la página</title>
+<title>Analizar ondas con transformada de Fourier</title>
 <link rel="stylesheet" href="{{url_for('static', filename='css/index.css')}}" />
+<link rel="shortcut icon" href="{{ url_for('static', filename='images/OIG3.png') }}">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 {% endblock %} {% block body %}
 <h1 class="text-center">
   Análisis de onda mediante la Transformada Rápida de Fourier
 </h1>
-<!--<button type="button" class="btn btn-primary">Prueba</button>-->
-
 <div class="container">
   <div class="row">
-    <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3">
+    <!-- Código de Jinja 2, muestra el Index sin la gráfica por defecto, también en caso de reiniciar o de error. -->
+    {% if estado == True or error %}
+    <div class="col-sm-12 col-md-8 col-lg-8 col-xl-8">
       <p class="text-center">
         El análisis de onda por transformada rápida de Fourier (FFT) es un
         algoritmo que calcula la transformada discreta de Fourier (DFT) de una
@@ -19,43 +21,69 @@
         representación en el dominio de la frecuencia y viceversa
       </p>
     </div>
-    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+    {% endif %}
+
+    <!-- Si se realiza el cálculo de la FFT muestra la gráfica -->
+    {% if pairs %}
+    <div class="col-sm-12 col-md-8 col-lg-8 col-xl-8">
+      <p class="text-center">
+        El análisis de onda por transformada rápida de Fourier (FFT) es un
+        algoritmo que calcula la transformada discreta de Fourier (DFT) de una
+        secuencia, o su inversa (IDFT). El análisis de Fourier convierte una
+        señal de su dominio original (a menudo tiempo o espacio) a una
+        representación en el dominio de la frecuencia y viceversa
+      </p>
       <canvas id="myChart" width="400" height="200"></canvas>
     </div>
-    <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3">
+
+    {% endif %}
+    <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
       <div class="mb-3">
-        <form method="POST" action="/">
-          <h4>Seleccione el lenguaje</h4>
-          <select name="lenguaje">
-            <option value="python">Python</option>
-            <option value="c">C</option>
-          </select>
-          <h4>Ingrese los números a operar</h4>
-          {% if error %}
-          <p class="error">{{ error }}</p>
-          {% endif %}
-          <input type="text" name="numbers" placeholder="Ingrese números separados por comas" />
-          <input type="submit" value="Enviar" />
+        <form class="form-control" method="POST" action="/">
+          <div class="col-xl-12">
+            <label for="lenguaje" class="form-label">Seleccione el lenguaje</label>
+            <select class="form-select" name="lenguaje" id="lenguaje">
+              <option value="python">Python</option>
+              <option value="c">C</option>
+            </select>
+          </div>
+          <label for="numbers" class="form-label">Ingrese los números a operar</label>
+          <input class="form-control" id="numbers" type="text" name="numbers"
+            placeholder="Ingrese números separados por comas" />
+          <input class="my-2 btn btn-primary" type="submit" value="Enviar" />
+          <button class="my-2 btn btn-secondary" type="button" id="reiniciar-btn">Reiniciar</button>
         </form>
 
-        <h3>Resultados de la FFT</h3>
+        <!-- En caso de error muestra la alerta -->
+        {% if error %}
+        <div class="alert alert-danger mt-2">
+          {{ error }}
+        </div>
+        {% endif %}
 
-        <h5>Entrada:</h5>
-        <p>{{ numbers }}</p>
+        <!-- En caso de realizarse el cálculo de la FFT muestra los resultados y un mensaje de éxito -->
+        {% if pairs %}
 
-        <h5>Resultados:</h5>
-        <table class="table table-striped-columns">
-          <tr>
-            <th>Parte real</th>
-            <th>Parte imaginaria</th>
-          </tr>
-          {% for real, imaginary in pairs %}
-          <tr>
-            <td>{{ real }}</td>
-            <td>{{ imaginary }}</td>
-          </tr>
-          {% endfor %}
-        </table>
+        <div class="alert alert-success mt-2">
+          Entrada: {{ numbers }}
+        </div>
+
+        <div class="container border">
+          <h5 class="text-center">Tabla de resultados</h5>
+          <table class="table table-bordered">
+            <tr>
+              <th class="table-primary">Parte real</th>
+              <th class="table-warning">Parte imaginaria</th>
+            </tr>
+            {% for real, imaginary in pairs %}
+            <tr">
+              <td class="hover_azul">{{ real }}</td>
+              <td class="hover_amarillo">{{ imaginary }}</td>
+              </tr>
+              {% endfor %}
+          </table>
+          {% endif %}
+        </div>
       </div>
     </div>
   </div>

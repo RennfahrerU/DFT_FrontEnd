@@ -1,15 +1,15 @@
+/**
+ * Función para calcular la magnitud 
+ * @param {Datos en formato JSON} Son los datos procesados en parte real e imaginaria  
+ * @returns La magnitud de los datos recibidos en el JSON
+ */
 function calcularMagnitud(numeroComplejo) {
+  // Se declaran las variables real e imaginaria
   let parteReal = numeroComplejo.real;
   let parteImaginaria = numeroComplejo.imaginary;
+  // Se declara el array vacío para almacenar la magnitud
   let magnitudes = [];
 
-  // Verificar que los dos arrays tengan la misma longitud
-  if (parteReal.length !== parteImaginaria.length) {
-    console.error(
-      "Error: Los arrays de parte real e imaginaria deben tener la misma longitud"
-    );
-    return magnitudes;
-  }
   //se calcula la magnitud y se agrega al array
   for (let i = 0; i < parteReal.length; i++) {
     let real = parteReal[i];
@@ -21,32 +21,32 @@ function calcularMagnitud(numeroComplejo) {
 }
 
 fetch("/data.json")
+  // Hace una solicitud HTTP al archivo JSON guardado por Flask
   .then((response) => response.json())
-  .then((data) => {
-    // Aquí puedes trabajar con los datos JSON
-    console.log(data);
-    let magnitud = [];
-    //console.log(calcularMagnitud(data));
 
-    // Obtén una referencia al elemento canvas
+  // Se le pasa el argumento data a .then
+  .then((data) => {
+
+    // Referencia el elemento canvas en el HTML
     var canvas = document.getElementById("myChart");
 
     // Crea un contexto 2D para dibujar en el canvas
     var ctx = canvas.getContext("2d");
 
-    // Definir los datos de la onda
-    var frecuenciaMuestreo = 1; // Frecuencia de muestreo en Hz
+    // Se define la frecuencia de muestreo en HZ
+    var frecuenciaMuestreo = 1;
 
+    // Guarda en una variable los resultados de pasar los datos del JSON a la función para obtener la magnitud
     var datosMagnitud = calcularMagnitud(data);
-    console.log("las magnitudes importadas son: " + datosMagnitud);
 
+    // Se definen los datos de la onda a través de un ciclo for
     var data = [];
     for (var i = 0; i < datosMagnitud.length; i++) {
       var valorX = i / frecuenciaMuestreo;
       data.push({ x: valorX, y: datosMagnitud[i] });
     }
 
-    // Configura la configuración del gráfico
+    // Se define la configuración del gráfico
     var chartConfig = {
       type: "line",
       data: {
@@ -74,7 +74,7 @@ fetch("/data.json")
       },
     };
 
-    // Crea el gráfico utilizando Chart.js
+    // Se crea el gráfico utilizando Chart.js
     var myChart = new Chart(ctx, chartConfig);
     // ...
   })
@@ -82,3 +82,12 @@ fetch("/data.json")
     // Manejo de errores
     console.error("Error:", error);
   });
+
+// Se obtiene una referencia al botón de reinicio por su ID
+var reiniciarBtn = document.getElementById('reiniciar-btn');
+
+// Se agrega un evento de clic al botón de reinicio
+reiniciarBtn.addEventListener('click', function () {
+  // Redirecciona a la página inicial
+  window.location.href = '/';
+});
