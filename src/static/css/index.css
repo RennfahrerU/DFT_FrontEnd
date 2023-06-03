@@ -1,3 +1,19 @@
 .error {
   color: red;
 }
+
+.hover_azul {
+  transition: 0.2s;
+}
+
+.hover_amarillo {
+  transition: 0.2s;
+}
+
+.hover_azul:hover {
+  background-color: #cfe2ff;
+}
+
+.hover_amarillo:hover {
+  background-color: #fff3cd;
+}
