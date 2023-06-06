@@ -1,3 +1,5 @@
+#### Este repositorio es la parte del FrontEnd para el proyecto FFT. El backend se puede encontrar en este repositorio: https://github.com/Dukas23/DFT_Backend
+
 ## Proyecto de Transformada Rápida de Fourier - Front End
 Este repositorio contiene  el desarrollo del front end del proyecto de Transformada Rápida de Fourier, en este se realizaron las siguientes actividades:
 
